@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'password'
 
-RSpec::Matchers.define :be_lowercase do |expected|
+RSpec::Matchers.define :have_lowercase_characters do |expected|
   match do |actual|
     found = actual.chars.collect { |character| character.match(/[a-z]/) }.compact!
 
@@ -11,7 +11,7 @@ RSpec::Matchers.define :be_lowercase do |expected|
   end
 end
 
-RSpec::Matchers.define :be_uppercase do |expected|
+RSpec::Matchers.define :have_uppercase_characters do |expected|
   match do |actual|
     found = actual.chars.collect { |character| character.match(/[A-Z]/) }.compact!
 
@@ -19,7 +19,7 @@ RSpec::Matchers.define :be_uppercase do |expected|
   end
 end
 
-RSpec::Matchers.define :be_numeric do |expected|
+RSpec::Matchers.define :have_numeric_characters do |expected|
   match do |actual|
     found = actual.chars.collect { |character| character.match(/[0-9]/) }.compact!
 
@@ -27,7 +27,14 @@ RSpec::Matchers.define :be_numeric do |expected|
   end
 end
 
-RSpec::Matchers.define :be_special_character do |expected|
+RSpec::Matchers.define :include_numeric_characters do |expected|
+  match do |actual|
+    found = actual.chars.collect { |character| character.match(/[0-9]/) }.compact!
+
+    found.empty? ? false : true
+  end
+end
+RSpec::Matchers.define :have_special_character do |expected|
   match do |actual|
     found = actual.chars.collect { |character| character.match(/[!$%&*@^]/) }.compact!
 

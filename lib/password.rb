@@ -2,23 +2,25 @@ class Password
   def self.generate(length=8, options={lowercase: true, uppercase: true, numeric: true, special: true})
     password = []
 
-
+    password_combo = []
     if options[:uppercase]
-      length.times do
-        password << uppercase[rand(24)]
-      end
-    elsif options[:lowercase]
-      length.times do
-        password << lowercase[rand(24)]
-      end
-    elsif options[:numeric]
-      length.times do
-        password << numeric[rand(24)]
-      end
-    elsif options[:special]
-      length.times do
-        password << special[rand(24)]
-      end
+      password_combo.concat(uppercase)
+    end
+
+    if options[:lowercase]
+      password_combo.concat(lowercase)
+    end
+
+    if options[:numeric]
+      password_combo.concat(numeric)
+    end
+
+    if options[:special]
+      password_combo.concat(special)
+    end
+
+    length.times do
+      password << password_combo[rand(password_combo.size)]
     end
 
     password.join

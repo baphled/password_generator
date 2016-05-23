@@ -3,34 +3,47 @@ require 'spec_helper'
 describe Password do
   subject { described_class }
 
-  it 'has a default length'
+  it 'has a default length' do
+    expect(subject.generate.chars.count).to eql(8)
+  end
+
   it 'requires a password length' do
     expect(subject.generate(10).chars.count).to eql(10)
   end
 
   context 'a single option is chosen' do
-
     context 'passwords with lowercase characters' do
-      let(:options) { {lowercase: true, uppercase: false} }
+      let(:options) { {lowercase: true, uppercase: false, numeric: false, special: false} }
 
-      it 'returns a password with lowercase characters' do
-        expect(subject.generate(10, options)).to be_lowercase
+      it 'only has lowercase characters' do
+        expect(subject.generate(10, options)).to have_lowercase_characters
+      end
+      it 'does not include uppercase characters' do
+        expect(subject.generate(10,options)).not_to have_uppercase_characters
+      end
+
+      it 'does not include numeric characters' do
+        expect(subject.generate(10,options)).not_to have_numeric_characters
+      end
+
+      it 'does not include special characters' do
+        expect(subject.generate(10,options)).not_to have_special_character
       end
     end
 
     context 'passwords with uppercase characters' do
       let(:options) { {lowercase: false, uppercase: true} }
 
-      it 'returns a password with uppercase characters' do
-        expect(subject.generate(10,options)).to be_uppercase
+      it 'only has uppercase characters' do
+        expect(subject.generate(10,options)).to have_uppercase_characters
       end
     end
 
     context 'passwords with numbers' do
       let(:options) { {lowercase: false, uppercase: false, numeric: true} }
 
-      it 'returns a password with numbers' do
-        expect(subject.generate(10,options)).to be_numeric
+      it 'only has number numbers' do
+        expect(subject.generate(10,options)).to have_numeric_characters
       end
     end
 
@@ -38,7 +51,7 @@ describe Password do
       let(:options) { {lowercase: false, uppercase: false, numeric: false, special: true} }
 
       it 'returns a password with special characters' do
-        expect(subject.generate(10,options)).to be_special_character
+        expect(subject.generate(10,options)).to have_special_character
       end
     end
   end
