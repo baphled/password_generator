@@ -11,11 +11,27 @@ RSpec::Matchers.define :have_lowercase_characters do |expected|
   end
 end
 
+RSpec::Matchers.define :include_lowercase_characters do |expected|
+  match do |actual|
+    found = actual.chars.collect { |character| character.match(/[a-z]/) }.compact!
+
+    found.empty? ? false : true
+  end
+end
+
 RSpec::Matchers.define :have_uppercase_characters do |expected|
   match do |actual|
     found = actual.chars.collect { |character| character.match(/[A-Z]/) }.compact!
 
     found.nil? ? true : false
+  end
+end
+
+RSpec::Matchers.define :include_uppercase_characters do |expected|
+  match do |actual|
+    found = actual.chars.collect { |character| character.match(/[A-Z]/) }.compact!
+
+    found.empty? ? false : true
   end
 end
 
@@ -34,10 +50,18 @@ RSpec::Matchers.define :include_numeric_characters do |expected|
     found.empty? ? false : true
   end
 end
-RSpec::Matchers.define :have_special_character do |expected|
+RSpec::Matchers.define :have_special_characters do |expected|
   match do |actual|
     found = actual.chars.collect { |character| character.match(/[!$%&*@^]/) }.compact!
 
     found.nil? ? true : false
+  end
+end
+
+RSpec::Matchers.define :include_special_characters do |expected|
+  match do |actual|
+    found = actual.chars.collect { |character| character.match(/[!$%&*@^]/) }.compact!
+
+    found.empty? ? false : true
   end
 end
