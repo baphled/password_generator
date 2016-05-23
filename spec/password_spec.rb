@@ -55,4 +55,21 @@ describe Password do
       end
     end
   end
+
+  context 'a combination of options are passed' do
+    let(:options) { {lowercase: true, uppercase: true, numeric: true, special: true} }
+    subject { described_class.generate(15, options) }
+
+    it 'returns the expect number of characters' do
+      expect(subject.size).to eql(15)
+    end
+
+    it 'includes numbers' do
+      expect(subject).to include_numeric_characters
+    end
+
+    it 'includes uppercase characters'
+    it 'includes lowercase characters'
+    it 'includes special characters'
+  end
 end
