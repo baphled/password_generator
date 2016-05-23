@@ -18,6 +18,7 @@ describe Password do
       it 'only has lowercase characters' do
         expect(subject.generate(10, options)).to have_lowercase_characters
       end
+
       it 'does not include uppercase characters' do
         expect(subject.generate(10,options)).not_to have_uppercase_characters
       end
@@ -27,7 +28,7 @@ describe Password do
       end
 
       it 'does not include special characters' do
-        expect(subject.generate(10,options)).not_to have_special_character
+        expect(subject.generate(10,options)).not_to have_special_characters
       end
     end
 
@@ -51,7 +52,7 @@ describe Password do
       let(:options) { {lowercase: false, uppercase: false, numeric: false, special: true} }
 
       it 'returns a password with special characters' do
-        expect(subject.generate(10,options)).to have_special_character
+        expect(subject.generate(10,options)).to have_special_characters
       end
     end
   end
