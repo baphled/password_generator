@@ -68,19 +68,10 @@ describe Password do
       expect(subject.size).to eql(password_length)
     end
 
-    it 'includes numbers' do
+    it 'contains all the expected characters' do
       expect(subject).to include_numeric_characters
-    end
-
-    it 'includes uppercase characters' do
       expect(subject).to include_uppercase_characters
-    end
-
-    it 'includes lowercase characters' do
       expect(subject).to include_lowercase_characters
-    end
-
-    it 'includes special characters' do
       expect(subject).to include_special_characters
     end
   end
