@@ -3,9 +3,15 @@ class Password
     password = []
 
     length.times do
-      password << 'a'
+      password << lowercase[rand(24)]
     end
 
     password.join
+  end
+
+  protected
+
+  def self.lowercase
+    ('a'..'z').to_a
   end
 end
