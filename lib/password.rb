@@ -1,8 +1,8 @@
 class Password
   def self.generate(length=8, options={lowercase: true, uppercase: true, numeric: true, special: true})
     password = []
+    characters = password_characters(options).shuffle
 
-    characters = password_characters(options)
     length.times { password << characters[rand(characters.size)] }
 
     password.join
@@ -13,10 +13,9 @@ class Password
   def self.password_characters(options)
     password_characters = []
 
-    password_characters.concat(uppercase) if options[:uppercase]
-    password_characters.concat(lowercase) if options[:lowercase]
-    password_characters.concat(numeric) if options[:numeric]
-    password_characters.concat(special) if options[:special]
+    [:uppercase, :lowercase, :numeric, :special].each do |character_type|
+      password_characters.concat(self.send(character_type)) if options[character_type]
+    end.compact!
 
     password_characters
   end
