@@ -60,6 +60,7 @@ describe Password do
   end
 
   context 'a combination of options are passed' do
+    let(:password_length) { 15 }
     let(:options) { {lowercase: true, uppercase: true, numeric: true, special: true} }
 
     subject { described_class.generate(password_length, options) }
