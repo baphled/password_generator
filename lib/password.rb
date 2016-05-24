@@ -1,7 +1,7 @@
 class Password
   def self.generate(length=8, options={lowercase: true, uppercase: true, numeric: true, special: true})
     password = []
-    characters = password_characters(options).shuffle
+    characters = password_characters(options)
 
     length.times { password << characters[rand(characters.size)] }
 
